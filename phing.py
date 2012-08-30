@@ -13,6 +13,7 @@ class PhingCommand(exec_import.ExecCommand):
     root = ET.fromstring(file_content)
     elements = root.findall(".//target")
     self.targets = map( lambda target: [target.attrib['name'], (target.attrib['description'] if target.attrib.has_key('description') else "No description given")], elements )
+    self.targets.sort()
     self.window.show_quick_panel(self.targets, self.on_target)
 
   def on_target(self, index):
