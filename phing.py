@@ -22,6 +22,6 @@ class PhingCommand(exec_import.ExecCommand):
       self.window.run_command("exec", {
         "cmd": [command],
         "shell": True,
-        "path": "/usr/local/bin:/opt/local/bin:/opt/local/sbin", #OSX additional path
+        "path": "/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin", #OSX additional path
         "working_dir": self.project_root
       })
