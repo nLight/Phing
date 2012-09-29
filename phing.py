@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 
 exec_import = __import__("exec")
 
-class PhingCommand(exec_import.ExecCommand):
+class PhingCommand(sublime_plugin.WindowCommand):
   def run(self):
     self.project_root = self.window.folders()[0]
     buildfile = open("%s/build.xml" % self.project_root, 'r')
@@ -18,10 +18,7 @@ class PhingCommand(exec_import.ExecCommand):
 
   def on_target(self, index):
     if index != -1:
-      command = "phing %s" % self.targets[index][0]
       self.window.run_command("exec", {
-        "cmd": [command],
-        "shell": True,
-        "path": "/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin", #OSX additional path
+        "cmd": ['phing', '-logger', 'phing.listener.DefaultLogger', self.targets[index][0]],
         "working_dir": self.project_root
       })
